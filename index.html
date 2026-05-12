@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0b0b0b;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        #slide-container {
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .img-wrapper {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            background: #1a1a1a;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+
+        .lyrics-box {
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            white-space: pre-line;
+        }
+
+        #eng-text {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: opacity 0.5s ease;
+            line-height: 1.3;
+        }
+
+        #rus-text {
+            font-size: 15px;
+            color: #888;
+            transition: opacity 0.5s ease;
+            line-height: 1.4;
+        }
+
+        .hint {
+            position: fixed;
+            bottom: 20px;
+            font-size: 11px;
+            color: #333;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body onclick="nextSlide()">
+
+    <div id="slide-container">
+        <div class="img-wrapper">
+            <img id="current-img" src="11.gif">
+        </div>
+        <div class="lyrics-box">
+            <div id="eng-text">Last night I had a dream about you
+            In this dream I'm dancing right beside you</div>
+            <div id="rus-text">Прошлой ночью мне приснился сон о тебе,
+            И в этом сне я танцую рядом с тобой.</div>
+        </div>
+    </div>
+
+    <div class="hint">Tap to continue</div>
+
+    <script>
+        const lyrics = [
+            { 
+                eng: "Last night I had a dream about you\nIn this dream I'm dancing right beside you", 
+                rus: "Прошлой ночью мне приснился сон о тебе,\nИ в этом сне я танцую рядом с тобой." 
+            },
+            { 
+                eng: "And it looked Like everyone was having fun\nThe kind of feeling I've waited so long", 
+                rus: "Было похоже, что все вокруг веселились,\nЭто чувство, которого я так долго ждал." 
+            },
+            { 
+                eng: "Don't stop, Come a little closer\nAs we jam, The rhythm gets stronger", 
+                rus: "Не останавливайся, подойди поближе,\nРитм становится все сильнее, когда мы танцуем." 
+            },
+            { 
+                eng: "There's nothing wrong with just a little, little fun\nWe were dancing all night long", 
+                rus: "И тут нет ничего плохого, просто развлекайся...\nМы танцевали всю ночь напролет." 
+            },
+            { 
+                eng: "The time is right To put my arms around you\nYou're feeling right You wrap your arms around too", 
+                rus: "Сейчас самое время, чтобы обнять тебя.\nТы всё правильно почувствовала, ты тоже обняла меня." 
+            },
+            { 
+                eng: "But suddenly I feel the shining sun\nBefore I knew it, this dream was all gone", 
+                rus: "Но вдруг я увидел яркое солнце,\nПрежде чем я понял это, сон прошёл." 
+            },
+            { 
+                eng: "Ooh, I don't know what to do about this dream and you\nI wish this dream comes true", 
+                rus: "О, я не знаю, что делать с этим сном и с тобой,\nЯ хочу, чтобы он сбылся." 
+            }
+        ];
+
+        const images = ["11.gif", "22.gif", "33.gif", "44.gif", "55.gif", "66.gif", "77.gif"];
+        let current = 0;
+
+        function nextSlide() {
+            if (current < lyrics.length - 1) {
+                current++;
+                
+                const img = document.getElementById('current-img');
+                const eng = document.getElementById('eng-text');
+                const rus = document.getElementById('rus-text');
+
+                img.style.opacity = 0;
+                eng.style.opacity = 0;
+                rus.style.opacity = 0;
+
+                setTimeout(() => {
+                    img.src = images[current];
+                    eng.innerText = lyrics[current].eng;
+                    rus.innerText = lyrics[current].rus;
+                    
+                    img.style.opacity = 1;
+                    eng.style.opacity = 1;
+                    rus.style.opacity = 1;
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
+
